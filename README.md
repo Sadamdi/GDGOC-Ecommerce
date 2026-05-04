@@ -408,7 +408,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 🙏 Acknowledgments
 
-- **[Google Developer Groups On Campus (GDGOC)](https://developers.google.com/community/gdg)** — UIN Maulana Malik Ibrahim Malang
+- **[Google Developer Groups On Campus (GDGOC)](https://gdg.community.dev/gdg-on-campus-uin-maulana-malik-ibrahim-malang-malang-indonesia/)** — UIN Maulana Malik Ibrahim Malang
 - **Study Jam 2026** — Program pembelajaran kolaboratif
 - **[Code Review Graph](https://github.com/tirth8205/code-review-graph)** — AI-powered code review knowledge graph
 - **[MongoDB](https://www.mongodb.com/)** — Database as a Service
