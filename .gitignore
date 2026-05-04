@@ -1,0 +1,37 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go
+/vendor/
+/bin/
+*.out
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Swagger generated
+/docs/swagger/swagger.json
+/docs/swagger/swagger.yaml
+
+# Test
+coverage.out
+coverage.html
+
+# Temporary
+tmp/
