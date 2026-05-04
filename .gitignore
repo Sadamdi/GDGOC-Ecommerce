@@ -10,6 +10,12 @@
 /bin/
 *.out
 
+# Node / Frontend
+node_modules/
+dist/
+build/
+.cache/
+
 # Environment
 .env
 .env.local
@@ -32,6 +38,9 @@ Thumbs.db
 # Test
 coverage.out
 coverage.html
+
+# Code Review Graph
+.code-review-graph/
 
 # Temporary
 tmp/
