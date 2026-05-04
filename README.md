@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/gdgoc-uin-malang-logo.png" width="250" alt="GDGOC UIN Malang Logo"/>
+  <img src="docs/assets/LOGO - GDG On Campus Maliki - Centered .png" width="250" alt="GDGOC UIN Malang Logo"/>
 </p>
 
 <h1 align="center">🛒 GDGOC E-Commerce Platform</h1>
