@@ -70,7 +70,7 @@ docs/
 |----------|-----------|
 | **AI Code Review** | [Code Review Graph](https://github.com/tirth8205/code-review-graph) (MCP-based) |
 | **AI Assistant** | Claude / Gemini via MCP |
-| **Containerization** | Docker & Docker Compose |
+| **Local Runtime** | Native Go & Node.js commands |
 
 > ⚠️ **Catatan Penting tentang Prisma**: Prisma Client Go telah **di-archive** pada 2025 dan tidak lagi dimaintain. Proyek ini menggunakan **Official MongoDB Go Driver** (`go.mongodb.org/mongo-driver`) yang lebih stabil dan didukung penuh oleh MongoDB Inc.
 

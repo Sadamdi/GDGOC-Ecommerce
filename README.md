@@ -65,7 +65,7 @@ Proyek ini menggabungkan backend Go murni (tanpa framework berat) dengan arsitek
 |-----------|-----------|
 | **AI Code Review** | [Code Review Graph](https://github.com/tirth8205/code-review-graph) (MCP-based) |
 | **AI Assistant** | Claude / Gemini via MCP |
-| **Containerization** | Docker & Docker Compose |
+| **Local Runtime** | Native Go & Node.js commands |
 | **CI/CD** | GitHub Actions |
 
 > ⚠️ **Note**: Prisma Client Go telah **di-archive** sejak 2025. Proyek ini menggunakan **Official MongoDB Go Driver** yang didukung penuh oleh MongoDB Inc.
@@ -185,7 +185,6 @@ GDGOC-Ecommerce/
 ├── AGENTS.md                         # AI Agent Instructions
 ├── LICENSE                           # MIT License
 ├── Makefile
-├── docker-compose.yml
 └── README.md                         # You are here
 ```
 
@@ -199,7 +198,6 @@ GDGOC-Ecommerce/
 - **Node.js** >= 18 (untuk frontend)
 - **Python** >= 3.10 (untuk Code Review Graph)
 - **MongoDB Atlas** account (atau local MongoDB)
-- **Docker** (opsional)
 
 ### Backend
 
@@ -260,17 +258,6 @@ code-review-graph build
 code-review-graph status
 ```
 
-### Docker
-
-```bash
-# Start semua services
-docker-compose up -d
-
-# Stop semua services
-docker-compose down
-```
-
----
 
 ## 📊 API Documentation
 

@@ -15,7 +15,7 @@
 - [ ] Setup `.gitignore` & `.env.example`
 - [ ] Setup `golangci-lint` configuration
 - [ ] Setup Swagger (Swaggo)
-- [ ] Setup Dockerfile & docker-compose
+- [ ] Setup build artifact binary untuk staging/production
 - [ ] Setup basic middleware (CORS, logging, recovery)
 - [ ] Setup standard response helpers
 

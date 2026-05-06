@@ -90,8 +90,6 @@ ecommerce-backend/
 ├── .env.example                      # Environment template
 ├── .gitignore                        # Git ignore rules
 ├── .golangci.yml                     # Linter configuration
-├── Dockerfile                        # Docker build
-├── docker-compose.yml                # Local development
 ├── go.mod                            # Go module definition
 ├── go.sum                            # Go module checksums
 ├── Makefile                          # Build & dev commands
@@ -147,13 +145,6 @@ swagger:
 fmt:
 	gofmt -w .
 	goimports -w .
-
-# Docker
-docker-up:
-	docker-compose up -d
-
-docker-down:
-	docker-compose down
 
 # All checks before push
 check: fmt lint test swagger
