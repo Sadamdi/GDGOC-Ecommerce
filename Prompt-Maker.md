@@ -12,6 +12,7 @@ Tugasmu adalah membuat sebuah file Markdown lengkap berformat prompt master yang
 - Tech Stack Backend: [contoh: Go pure net/http, MongoDB Atlas, JWT, Swagger/Swaggo]
 - Tech Stack Frontend: [contoh: React + Vite + Tailwind CSS]
 - Arsitektur: [contoh: Clean Architecture 4-Layer]
+- Strategi Deployment: [contoh: tanpa Docker, backend binary Go + frontend static build, process manager PM2]
 - Larangan: [contoh: jangan pakai Gin/Echo/Fiber, jangan pakai Prisma Go]
 - Bahasa dokumentasi: [contoh: Bahasa Indonesia]
 
