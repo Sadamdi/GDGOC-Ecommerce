@@ -47,7 +47,7 @@ flowchart TD
 |---|---------|-----------|
 | 1.1 | Baca SOP yang relevan | ☐ Code Standards, API Design, Testing |
 | 1.2 | Review Feature Summary | ☐ Pastikan fitur belum ada / perlu diupdate |
-| 1.3 | Buat/Update Feature Document | ☐ Gunakan template di `docs/features/feature-template.md` |
+| 1.3 | Buat/Update Feature Document | ☐ Buat folder baru (misal: `docs/features/01-nama-fitur/`) dengan urutan angka, isi dengan `00-README.md` dan pecah fitur menjadi file-file kecil bernomor (contoh: `01-create.md`). Gunakan `feature-template.md` sebagai referensi. |
 | 1.4 | Identifikasi dependencies | ☐ Layer mana yang terpengaruh? |
 | 1.5 | Estimasi waktu | ☐ Breakdown per sub-task |
 

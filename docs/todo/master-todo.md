@@ -7,127 +7,127 @@
 
 ## Phase 0: Project Setup ⚙️
 
-- [ ] Initialize Go module (`go mod init`)
-- [ ] Setup project folder structure (clean architecture)
-- [ ] Setup MongoDB Atlas connection
-- [ ] Create configuration management (env vars)
-- [ ] Setup Makefile
-- [ ] Setup `.gitignore` & `.env.example`
-- [ ] Setup `golangci-lint` configuration
-- [ ] Setup Swagger (Swaggo)
-- [ ] Setup build artifact binary untuk staging/production
-- [ ] Setup basic middleware (CORS, logging, recovery)
-- [ ] Setup standard response helpers
+- [x] Initialize Go module (`go mod init`)
+- [x] Setup project folder structure (clean architecture)
+- [x] Setup MongoDB Atlas connection
+- [x] Create configuration management (env vars)
+- [x] Setup Makefile
+- [x] Setup `.gitignore` & `.env.example`
+- [x] Setup `golangci-lint` configuration
+- [x] Setup Swagger (Swaggo)
+- [x] Setup build artifact binary untuk staging/production
+- [x] Setup basic middleware (CORS, logging, recovery)
+- [x] Setup standard response helpers
 
 ---
 
 ## Phase 1: Authentication & User Management 🔐
 
-- [ ] **Domain Layer**
-  - [ ] User entity
-  - [ ] UserRepository interface
-  - [ ] AuthUseCase interface
-  - [ ] Domain errors
-  - [ ] Request/Response DTOs
+- [x] **Domain Layer**
+  - [x] User entity
+  - [x] UserRepository interface
+  - [x] AuthUseCase interface
+  - [x] Domain errors
+  - [x] Request/Response DTOs
 
-- [ ] **Repository Layer**
-  - [ ] MongoDB User repository implementation
-  - [ ] Create indexes (email unique)
+- [x] **Repository Layer**
+  - [x] MongoDB User repository implementation
+  - [x] Create indexes (email unique)
 
-- [ ] **UseCase Layer**
-  - [ ] Register use case
-  - [ ] Login use case
-  - [ ] Refresh token use case
-  - [ ] Password hashing (bcrypt)
-  - [ ] JWT token generation
+- [x] **UseCase Layer**
+  - [x] Register use case
+  - [x] Login use case
+  - [x] Refresh token use case
+  - [x] Password hashing (bcrypt)
+  - [x] JWT token generation
 
-- [ ] **Handler Layer**
-  - [ ] Register handler + Swagger
-  - [ ] Login handler + Swagger
-  - [ ] Refresh handler + Swagger
-  - [ ] Auth middleware (JWT validation)
+- [x] **Handler Layer**
+  - [x] Register handler + Swagger
+  - [x] Login handler + Swagger
+  - [x] Refresh handler + Swagger
+  - [x] Auth middleware (JWT validation)
 
-- [ ] **Testing**
-  - [ ] Domain validation tests
-  - [ ] UseCase unit tests (mock repo)
-  - [ ] Handler HTTP tests
-  - [ ] Integration tests
+- [x] **Testing**
+  - [x] Domain validation tests
+  - [x] UseCase unit tests (mock repo)
+  - [x] Handler HTTP tests
+  - [x] Integration tests
 
 ---
 
 ## Phase 2: Product Catalog 📦
 
-- [ ] **Domain Layer**
-  - [ ] Product entity
-  - [ ] Category entity
-  - [ ] ProductRepository interface
-  - [ ] CategoryRepository interface
+- [x] **Domain Layer**
+  - [x] Product entity
+  - [x] Category entity
+  - [x] ProductRepository interface
+  - [x] CategoryRepository interface
 
-- [ ] **Repository Layer**
-  - [ ] MongoDB Product repository
-  - [ ] MongoDB Category repository
-  - [ ] Search & filter implementation
-  - [ ] Pagination implementation
+- [x] **Repository Layer**
+  - [x] MongoDB Product repository
+  - [x] MongoDB Category repository
+  - [x] Search & filter implementation
+  - [x] Pagination implementation
 
-- [ ] **UseCase Layer**
-  - [ ] Product CRUD use cases
-  - [ ] Category CRUD use cases
-  - [ ] Product search & filter
+- [x] **UseCase Layer**
+  - [x] Product CRUD use cases
+  - [x] Category CRUD use cases
+  - [x] Product search & filter
 
-- [ ] **Handler Layer**
-  - [ ] Product handlers + Swagger
-  - [ ] Category handlers + Swagger
+- [x] **Handler Layer**
+  - [x] Product handlers + Swagger
+  - [x] Category handlers + Swagger
 
-- [ ] **Testing**
-  - [ ] Unit tests
-  - [ ] Integration tests
+- [x] **Testing**
+  - [x] Unit tests
+  - [x] Integration tests
 
 ---
 
 ## Phase 3: Shopping Cart 🛒
 
-- [ ] **Domain Layer**
-  - [ ] Cart entity
-  - [ ] CartRepository interface
+- [x] **Domain Layer**
+  - [x] Cart entity
+  - [x] CartRepository interface
 
-- [ ] **Repository Layer**
-  - [ ] MongoDB Cart repository
+- [x] **Repository Layer**
+  - [x] MongoDB Cart repository
 
-- [ ] **UseCase Layer**
-  - [ ] Add/Remove/Update cart items
-  - [ ] Stock validation
-  - [ ] Cart total calculation
+- [x] **UseCase Layer**
+  - [x] Add/Remove/Update cart items
+  - [x] Stock validation
+  - [x] Cart total calculation
 
-- [ ] **Handler Layer**
-  - [ ] Cart handlers + Swagger
+- [x] **Handler Layer**
+  - [x] Cart handlers + Swagger
 
-- [ ] **Testing**
-  - [ ] Unit tests
-  - [ ] Integration tests
+- [x] **Testing**
+  - [x] Unit tests
+  - [x] Integration tests
 
 ---
 
 ## Phase 4: Order Management 📑
 
-- [ ] **Domain Layer**
-  - [ ] Order entity
-  - [ ] OrderRepository interface
-  - [ ] Order status enum & state machine
+- [x] **Domain Layer**
+  - [x] Order entity
+  - [x] OrderRepository interface
+  - [x] Order status enum & state machine
 
-- [ ] **Repository Layer**
-  - [ ] MongoDB Order repository
+- [x] **Repository Layer**
+  - [x] MongoDB Order repository
 
-- [ ] **UseCase Layer**
-  - [ ] Checkout (cart → order)
-  - [ ] Order status management
-  - [ ] Stock deduction on order
+- [x] **UseCase Layer**
+  - [x] Checkout (cart → order)
+  - [x] Order status management
+  - [x] Stock deduction on order
 
-- [ ] **Handler Layer**
-  - [ ] Order handlers + Swagger
+- [x] **Handler Layer**
+  - [x] Order handlers + Swagger
 
-- [ ] **Testing**
-  - [ ] Unit tests
-  - [ ] Integration tests
+- [x] **Testing**
+  - [x] Unit tests
+  - [x] Integration tests
 
 ---
 
@@ -177,11 +177,11 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 0: Setup | 📋 Not Started | 0% |
-| Phase 1: Auth & User | 📋 Not Started | 0% |
-| Phase 2: Products | 📋 Not Started | 0% |
-| Phase 3: Cart | 📋 Not Started | 0% |
-| Phase 4: Orders | 📋 Not Started | 0% |
+| Phase 0: Setup | ✅ Done | 100% |
+| Phase 1: Auth & User | ✅ Done | 100% |
+| Phase 2: Products | ✅ Done | 100% |
+| Phase 3: Cart | ✅ Done | 100% |
+| Phase 4: Orders | ✅ Done | 100% |
 | Phase 5: Payment | 📋 Not Started | 0% |
 | Phase 6: Reviews & Admin | 📋 Not Started | 0% |
 | Phase 7: Polish | 📋 Not Started | 0% |

@@ -1,6 +1,6 @@
 # 📋 Feature Summary — E-Commerce Backend
 
-> **Ringkasan lengkap semua fitur yang direncanakan untuk platform E-Commerce.**
+> **Ringkasan lengkap semua fitur platform E-Commerce beserta status implementasi.**
 
 ---
 
@@ -12,32 +12,32 @@ mindmap
     Auth
       Register
       Login
-      Refresh Token
+      Forgot Password
+      Reset Password
       Logout
-      Password Reset
-    User
-      Get Profile
-      Update Profile
-      Upload Avatar
-      Address Management
+    Category
+      List Categories
+      Get Category
+      Create Category
+      Update Category
     Product
       CRUD Product
       Search & Filter
-      Categories
-      Image Upload
+      Pagination
+      Image URLs
       Stock Management
     Cart
+      Get Cart
       Add to Cart
       Update Quantity
       Remove Item
       Clear Cart
-      Cart Summary
     Order
-      Create Order
+      Checkout
       Order History
       Order Detail
       Cancel Order
-      Order Status Tracking
+      Admin Update Status
     Payment
       Payment Methods
       Process Payment
@@ -48,13 +48,25 @@ mindmap
       List Reviews
       Update Review
       Delete Review
-      Rating Summary
     Admin
       User Management
-      Product Approval
-      Order Management
       Dashboard Analytics
 ```
+
+---
+
+## 📊 Implementation Progress
+
+| # | Feature | Status | Detail Doc |
+|---|---------|--------|------------|
+| 1 | Authentication & Authorization | ✅ Done | [auth.md](auth.md) |
+| 2 | Category Management | ✅ Done | [category.md](category.md) |
+| 3 | Product Catalog | ✅ Done | [product-catalog.md](product-catalog.md) |
+| 4 | Shopping Cart | ✅ Done | [shopping-cart.md](shopping-cart.md) |
+| 5 | Order Management | ✅ Done | [order-management.md](order-management.md) |
+| 6 | Payment | 📋 Planned | — |
+| 7 | Reviews & Ratings | 📋 Planned | — |
+| 8 | Admin Panel (advanced) | 📋 Planned | — |
 
 ---
 
@@ -64,36 +76,35 @@ mindmap
 
 | Fitur | Method | Endpoint | Status | Priority |
 |-------|--------|----------|--------|----------|
-| Register | POST | `/api/v1/auth/register` | 📋 Planned | 🔴 High |
-| Login | POST | `/api/v1/auth/login` | 📋 Planned | 🔴 High |
+| Register | POST | `/api/v1/auth/register` | ✅ Done | 🔴 High |
+| Login | POST | `/api/v1/auth/login` | ✅ Done | 🔴 High |
+| Forgot Password | POST | `/api/v1/auth/forgot-password` | ✅ Done | 🟡 Medium |
+| Reset Password | POST | `/api/v1/auth/reset-password` | ✅ Done | 🟡 Medium |
+| Logout | POST | `/api/v1/auth/logout` | ✅ Done | 🟡 Medium |
 | Refresh Token | POST | `/api/v1/auth/refresh` | 📋 Planned | 🔴 High |
-| Logout | POST | `/api/v1/auth/logout` | 📋 Planned | 🟡 Medium |
-| Forgot Password | POST | `/api/v1/auth/forgot-password` | 📋 Planned | 🟡 Medium |
-| Reset Password | POST | `/api/v1/auth/reset-password` | 📋 Planned | 🟡 Medium |
 
-**Business Rules:**
-- Password minimum 8 karakter, harus ada uppercase, lowercase, angka
-- JWT token expiration: 24 jam
-- Refresh token expiration: 7 hari
-- Rate limit login: 5 attempts per 15 menit
+**Implementasi:**
+- JWT token dengan configurable expiration
+- Password hashing via bcrypt
+- Token blocklist (logout) dengan TTL index
+- Forgot/Reset password via email service
+- Auth middleware + Role-based access control
 
 ---
 
-### 👤 2. User Management
+### 🏷️ 2. Category Management
 
 | Fitur | Method | Endpoint | Status | Priority |
 |-------|--------|----------|--------|----------|
-| Get Profile | GET | `/api/v1/users/me` | 📋 Planned | 🔴 High |
-| Update Profile | PUT | `/api/v1/users/me` | 📋 Planned | 🔴 High |
-| Change Password | PUT | `/api/v1/users/me/password` | 📋 Planned | 🟡 Medium |
-| Add Address | POST | `/api/v1/users/me/addresses` | 📋 Planned | 🟡 Medium |
-| List Addresses | GET | `/api/v1/users/me/addresses` | 📋 Planned | 🟡 Medium |
-| Delete Address | DELETE | `/api/v1/users/me/addresses/:id` | 📋 Planned | 🟡 Medium |
+| List Categories | GET | `/api/v1/categories` | ✅ Done | 🔴 High |
+| Get Category | GET | `/api/v1/categories/{id}` | ✅ Done | 🔴 High |
+| Create Category | POST | `/api/v1/categories` | ✅ Done | 🟡 Medium |
+| Update Category | PUT | `/api/v1/categories/{id}` | ✅ Done | 🟡 Medium |
 
-**Roles:**
-- `customer` — Beli produk
-- `seller` — Jual produk
-- `admin` — Kelola platform
+**Implementasi:**
+- Nama kategori unik (duplicate check)
+- GET endpoints bersifat publik
+- Create/Update membutuhkan admin role
 
 ---
 
@@ -101,20 +112,20 @@ mindmap
 
 | Fitur | Method | Endpoint | Status | Priority |
 |-------|--------|----------|--------|----------|
-| List Products | GET | `/api/v1/products` | 📋 Planned | 🔴 High |
-| Get Product | GET | `/api/v1/products/:id` | 📋 Planned | 🔴 High |
-| Create Product | POST | `/api/v1/products` | 📋 Planned | 🔴 High |
-| Update Product | PUT | `/api/v1/products/:id` | 📋 Planned | 🔴 High |
-| Delete Product | DELETE | `/api/v1/products/:id` | 📋 Planned | 🟡 Medium |
-| Search Products | GET | `/api/v1/products?q=keyword` | 📋 Planned | 🔴 High |
-| List Categories | GET | `/api/v1/categories` | 📋 Planned | 🔴 High |
-| Create Category | POST | `/api/v1/categories` | 📋 Planned | 🟡 Medium |
+| List Products | GET | `/api/v1/products` | ✅ Done | 🔴 High |
+| Get Product | GET | `/api/v1/products/{id}` | ✅ Done | 🔴 High |
+| Create Product | POST | `/api/v1/products` | ✅ Done | 🔴 High |
+| Update Product | PUT | `/api/v1/products/{id}` | ✅ Done | 🔴 High |
+| Delete Product | DELETE | `/api/v1/products/{id}` | ✅ Done | 🟡 Medium |
+| Search Products | GET | `/api/v1/products?q=keyword` | ✅ Done | 🔴 High |
 
-**Business Rules:**
-- Hanya seller/admin yang bisa create/update/delete product
-- Product harus punya minimal 1 gambar
-- Stok tidak boleh negatif
-- Pagination default: 20 items per page
+**Implementasi:**
+- Pagination (default 20/page)
+- Filter: category, min/max price, in_stock
+- Search: keyword (regex pada nama produk)
+- Validasi category_id ke CategoryRepository
+- Minimal 1 gambar (URL), harga > 0, stok >= 0
+- Admin-only untuk create/update/delete
 
 ---
 
@@ -122,17 +133,19 @@ mindmap
 
 | Fitur | Method | Endpoint | Status | Priority |
 |-------|--------|----------|--------|----------|
-| Get Cart | GET | `/api/v1/cart` | 📋 Planned | 🔴 High |
-| Add to Cart | POST | `/api/v1/cart/items` | 📋 Planned | 🔴 High |
-| Update Quantity | PUT | `/api/v1/cart/items/:id` | 📋 Planned | 🔴 High |
-| Remove Item | DELETE | `/api/v1/cart/items/:id` | 📋 Planned | 🔴 High |
-| Clear Cart | DELETE | `/api/v1/cart` | 📋 Planned | 🟡 Medium |
+| Get Cart | GET | `/api/v1/cart` | ✅ Done | 🔴 High |
+| Add to Cart | POST | `/api/v1/cart/items` | ✅ Done | 🔴 High |
+| Update Quantity | PUT | `/api/v1/cart/items/{productId}` | ✅ Done | 🔴 High |
+| Remove Item | DELETE | `/api/v1/cart/items/{productId}` | ✅ Done | 🔴 High |
+| Clear Cart | DELETE | `/api/v1/cart` | ✅ Done | 🟡 Medium |
 
-**Business Rules:**
-- Quantity tidak boleh 0 atau negatif
-- Check stok saat add to cart
-- 1 user = 1 cart aktif
-- Cart otomatis clear setelah checkout
+**Implementasi:**
+- 1 user = 1 active cart
+- Stok dicek saat add/update (tanpa reserve)
+- Harga selalu diambil dari data produk terbaru
+- Quantity <= 0 otomatis remove item
+- Optimistic locking via version field
+- Cart auto-clear setelah checkout
 
 ---
 
@@ -140,27 +153,27 @@ mindmap
 
 | Fitur | Method | Endpoint | Status | Priority |
 |-------|--------|----------|--------|----------|
-| Create Order | POST | `/api/v1/orders` | 📋 Planned | 🔴 High |
-| List Orders | GET | `/api/v1/orders` | 📋 Planned | 🔴 High |
-| Get Order | GET | `/api/v1/orders/:id` | 📋 Planned | 🔴 High |
-| Cancel Order | PUT | `/api/v1/orders/:id/cancel` | 📋 Planned | 🟡 Medium |
-| Update Status | PUT | `/api/v1/orders/:id/status` | 📋 Planned | 🟡 Medium |
+| Checkout | POST | `/api/v1/orders` | ✅ Done | 🔴 High |
+| List Orders | GET | `/api/v1/orders` | ✅ Done | 🔴 High |
+| Get Order | GET | `/api/v1/orders/{id}` | ✅ Done | 🔴 High |
+| Cancel Order | PUT | `/api/v1/orders/{id}/cancel` | ✅ Done | 🟡 Medium |
+| Update Status (Admin) | PUT | `/api/v1/admin/orders/{id}/status` | ✅ Done | 🟡 Medium |
+
+**Implementasi:**
+- Checkout: cart → validasi stok → deduct stok → create order → clear cart
+- Order status state machine: `pending → completed | cancelled`
+- Cancel restores stock (non-fatal per item)
+- Ownership validation (hanya pemilik atau admin)
+- Pagination (default 20, max 100)
 
 **Order Status Flow:**
 ```mermaid
 stateDiagram-v2
-    [*] --> Pending: Order Created
-    Pending --> Paid: Payment Confirmed
-    Pending --> Cancelled: User Cancel
-    Paid --> Processing: Seller Process
-    Processing --> Shipped: Seller Ship
-    Shipped --> Delivered: Buyer Confirm
-    Delivered --> Completed: Auto after 7 days
-    Delivered --> Refund_Requested: Buyer Request
-    Refund_Requested --> Refunded: Admin Approve
+    [*] --> Pending: Checkout
+    Pending --> Completed: Admin Update
+    Pending --> Cancelled: User Cancel / Admin
     Completed --> [*]
     Cancelled --> [*]
-    Refunded --> [*]
 ```
 
 ---
@@ -201,6 +214,11 @@ stateDiagram-v2
 | List All Orders | GET | `/api/v1/admin/orders` | 📋 Planned | 🟡 Medium |
 | Dashboard Stats | GET | `/api/v1/admin/dashboard` | 📋 Planned | 🟢 Low |
 
+> **Note:** Beberapa admin endpoint sudah diimplementasi sebagai bagian dari fitur lain:
+> - Admin order status update → `/api/v1/admin/orders/{id}/status` (✅ Done, di Order Management)
+> - Admin CRUD product → di Product Catalog (✅ Done)
+> - Admin CRUD category → di Category Management (✅ Done)
+
 ---
 
 ## 📈 Status Legend
@@ -216,4 +234,25 @@ stateDiagram-v2
 
 ---
 
-*Terakhir diperbarui: 2026-05-03*
+## 🏗️ Architecture Implemented
+
+```
+backend/internal/
+├── config/        → App config (env vars)
+├── domain/        → Entities, Interfaces, DTOs, Errors, Constants
+├── usecase/       → Business logic (5 use cases + tests)
+├── repository/    → MongoDB implementations (5 repos + tests)
+├── delivery/http/ → Handlers, Middleware, Router, Response helpers
+└── pkg/           → hash, token, mail, validator, mongodb
+```
+
+**Clean Architecture compliance:**
+- ✅ Domain layer has zero external dependencies
+- ✅ UseCase imports only domain interfaces
+- ✅ Repository implements domain interfaces
+- ✅ Handler depends on UseCase interfaces only
+- ✅ Swagger annotations on all handler endpoints
+
+---
+
+*Terakhir diperbarui: 2026-05-07*
