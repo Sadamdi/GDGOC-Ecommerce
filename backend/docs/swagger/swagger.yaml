@@ -1,0 +1,833 @@
+basePath: /api/v1
+definitions:
+  domain.CartItemRequest:
+    properties:
+      product_id:
+        type: string
+      quantity:
+        minimum: 1
+        type: integer
+    required:
+    - product_id
+    - quantity
+    type: object
+  domain.CartItemResponse:
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+      product_id:
+        type: string
+      quantity:
+        type: integer
+      sub_total:
+        type: number
+    type: object
+  domain.CartResponse:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/domain.CartItemResponse'
+        type: array
+      total_amount:
+        type: number
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  domain.CategoryRequest:
+    properties:
+      description:
+        maxLength: 500
+        type: string
+      name:
+        maxLength: 100
+        minLength: 2
+        type: string
+    required:
+    - name
+    type: object
+  domain.ForgotPasswordRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  domain.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  domain.ProductRequest:
+    properties:
+      category_id:
+        type: string
+      description:
+        type: string
+      images:
+        items:
+          type: string
+        minItems: 1
+        type: array
+      name:
+        maxLength: 200
+        minLength: 3
+        type: string
+      price:
+        type: number
+      stock:
+        minimum: 0
+        type: integer
+    required:
+    - category_id
+    - description
+    - images
+    - name
+    - price
+    - stock
+    type: object
+  domain.RegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        maxLength: 100
+        minLength: 3
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  domain.ResetPasswordRequest:
+    properties:
+      password:
+        minLength: 6
+        type: string
+      token:
+        type: string
+    required:
+    - password
+    - token
+    type: object
+  domain.UpdateCartItemRequest:
+    properties:
+      quantity:
+        minimum: 0
+        type: integer
+    type: object
+  ecommerce-backend_internal_delivery_http.Response:
+    properties:
+      data: {}
+      error:
+        $ref: '#/definitions/http.Error'
+      message:
+        type: string
+      meta:
+        $ref: '#/definitions/http.Meta'
+      success:
+        type: boolean
+    type: object
+  http.Error:
+    properties:
+      code:
+        type: string
+      details: {}
+    type: object
+  http.Meta:
+    properties:
+      page:
+        type: integer
+      per_page:
+        type: integer
+      total:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is the backend API for E-Commerce platform
+  title: E-Commerce API
+  version: "1.0"
+paths:
+  /auth/forgot-password:
+    post:
+      consumes:
+      - application/json
+      description: Request a password reset token to be sent to email
+      parameters:
+      - description: Forgot Password Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ForgotPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: Forgot password
+      tags:
+      - auth
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT token
+      parameters:
+      - description: Login Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: Login user
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      description: Invalidate the current JWT token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Logout user
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with name, email, and password
+      parameters:
+      - description: Register Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: Register a new user
+      tags:
+      - auth
+  /auth/reset-password:
+    post:
+      consumes:
+      - application/json
+      description: Reset password using token
+      parameters:
+      - description: Reset Password Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: Reset password
+      tags:
+      - auth
+  /cart:
+    delete:
+      description: Remove all items from the current user's cart
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Clear user's cart
+      tags:
+      - cart
+    get:
+      description: Get the current user's shopping cart
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.CartResponse'
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Get user's cart
+      tags:
+      - cart
+  /cart/items:
+    post:
+      consumes:
+      - application/json
+      description: Add a new item or increase quantity of an existing item in the
+        cart
+      parameters:
+      - description: Cart Item Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CartItemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.CartResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Add item to cart
+      tags:
+      - cart
+  /cart/items/{productId}:
+    delete:
+      description: Remove a specific item from the cart
+      parameters:
+      - description: Product ID
+        in: path
+        name: productId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.CartResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Remove item from cart
+      tags:
+      - cart
+    put:
+      consumes:
+      - application/json
+      description: Update the quantity of a specific item in the cart
+      parameters:
+      - description: Product ID
+        in: path
+        name: productId
+        required: true
+        type: string
+      - description: Quantity update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UpdateCartItemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.CartResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Update item quantity
+      tags:
+      - cart
+  /categories:
+    get:
+      description: Get a list of all product categories
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: List all categories
+      tags:
+      - categories
+    post:
+      consumes:
+      - application/json
+      description: Create a new product category. Requires admin role.
+      parameters:
+      - description: Category Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Create a new category
+      tags:
+      - categories
+  /categories/{id}:
+    get:
+      description: Get a product category by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: Get category details
+      tags:
+      - categories
+    put:
+      consumes:
+      - application/json
+      description: Update an existing product category. Requires admin role.
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Category Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Update a category
+      tags:
+      - categories
+  /products:
+    get:
+      description: Browse and search products with optional filters and pagination
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Items per page
+        in: query
+        name: per_page
+        type: integer
+      - description: Category ID
+        in: query
+        name: category
+        type: string
+      - description: Minimum price
+        in: query
+        name: min_price
+        type: number
+      - description: Maximum price
+        in: query
+        name: max_price
+        type: number
+      - description: Filter by stock availability
+        in: query
+        name: in_stock
+        type: boolean
+      - description: Search keyword
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: List products
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: Create a new product in the catalog. Requires admin role.
+      parameters:
+      - description: Product Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ProductRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Create a new product
+      tags:
+      - products
+  /products/{id}:
+    delete:
+      description: Delete a product. Requires admin role.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete a product
+      tags:
+      - products
+    get:
+      description: Get a product by ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      summary: Get product details
+      tags:
+      - products
+    put:
+      consumes:
+      - application/json
+      description: Update an existing product. Requires admin role.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ecommerce-backend_internal_delivery_http.Response'
+      security:
+      - BearerAuth: []
+      summary: Update a product
+      tags:
+      - products
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

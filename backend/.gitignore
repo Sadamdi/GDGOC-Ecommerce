@@ -1,0 +1,23 @@
+# Binaries
+bin/
+main
+ecommerce-backend
+
+# Dependencies
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.*
+
+# IDE & OS files
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# Test coverage
+coverage.out
+coverage.html
